@@ -1071,3 +1071,878 @@ def city(list, idx=0):
 cities=["Patna","kolkata","hajipur","mumbai","delhi","banglore"]
 city(cities)
 ```
+# __Lesson 7__
+
+The argument mode points to a string beginning with one of the following
+ sequences (Additional characters may follow these sequences.):
+
+ ``r''   Open text file for reading.  The stream is positioned at the
+         beginning of the file.
+
+ ``r+''  Open for reading and writing.  The stream is positioned at the
+         beginning of the file.
+
+ ``w''   Truncate file to zero length or create text file for writing.
+         The stream is positioned at the beginning of the file.
+
+ ``w+''  Open for reading and writing.  The file is created if it does not
+         exist, otherwise it is truncated.  The stream is positioned at
+         the beginning of the file.
+
+ ``a''   Open for writing.  The file is created if it does not exist.  The
+         stream is positioned at the end of the file.  Subsequent writes
+         to the file will always end up at the then current end of file,
+         irrespective of any intervening fseek(3) or similar.
+
+ ``a+''  Open for reading and writing.  The file is created if it does not
+         exist.  The stream is positioned at the end of the file.  Subse-
+         quent writes to the file will always end up at the then current
+         end of file, irrespective of any intervening fseek(3) or similar.<br>
+__Code__
+```python
+f = open("demo.txt","r")
+data=f.read()
+print(data)
+print(type(data))
+f.close()
+```
+__Code__
+```python
+f = open("demo.txt","r")
+data=f.read(13)#gives text till 13
+print(data)
+f.close()
+```
+__Code__
+```python
+f = open("demo.txt","r")
+line1=f.readline() #gives one line
+print(line1)
+f.close()
+```
+__Code__
+```python
+f = open("demo.txt","r")
+data=f.read()
+print(data)
+f.close()
+
+f = open("demo.txt","r")
+line1=f.readline() #gives one line
+print(line1)
+f.close()
+
+f = open("demo.txt","r")
+line2=f.readline() #gives one line
+print(line2)
+f.close()
+```
+__Code__
+```python
+f = open("demo.txt","r")
+
+data=f.read()
+print(data) # print all text
+
+line1=f.readline() #gives empty space
+print(line1)
+
+line2=f.readline() #gives empty space
+print(line2)
+f.close()
+```
+__Code__
+```python
+f=open("demo.txt","w")
+f.write("i want to learn javascript next time")#write in given file and remove previous text
+f.close()
+```
+__Code__
+```python
+f=open("demo.txt","a")
+f.write("\nthen i will to learn nodejs") #write in given file 
+f.close()
+```
+__Code__
+```python
+f=open("demo.txt","r+")
+f.write("\n next") # r+ overwrites from starting
+print(f.read())#read data from where it left to write
+f.close()
+```
+### By using With 
+__Code__
+```python
+with open("demo.txt","r") as f:
+    data=f.read()
+    print(data)
+
+with open("demo.txt","w") as f:
+    f.write("next to learn javascript/n then react react js\n then nodejs")
+```
+
+## Deleting a file
+__Code__
+```python
+import os
+os.remove("sample.txt")
+```
+# __Practice Question__
+__Question 1.__  Create a new file “practice.txt” using python. Add the following data in it:<br>
+ Hi everyone<br>
+ we are learning File I/O<br>
+ using Java.<br>
+ I like programming in Java.<br>
+__Code__
+```python
+f=open("practice.txt","w")
+f.write("Hi everyone \n"
+     "we are learning File I/O \n"
+     "using Java. \n"
+     "I like programming in Java.")
+f.close()
+```
+
+__Question 2.__ WAF that replace all occurrences of “java” with “python” in above file.<br>
+__Code__
+```python
+with open("practice.txt","r") as f:
+    data = f.read()
+new_data = data.replace("Java","python")
+print(new_data)
+
+with open("practice.txt","w") as f:
+    f.write(new_data)
+```
+__Question 3.__ Search if the word “learning” exists in the file or not.<br>
+__Code__
+```python
+word="learning"
+with open("practice.txt","r") as f:
+    data = f.read()
+    if(data.find(word)!=-1):
+        print("exist")
+    else:
+        print("not exist")
+```
+- Solution by using with function<br>
+__Code__
+```python
+def check_for_word():
+    word="wlearning"
+    with open("practice.txt","r") as f:
+        data = f.read()
+        if(data.find(word)!=-1):
+            print("exist")
+        else:
+            print("not exist")
+check_for_word()        
+```
+__Question 4.__ WAF to find in which line of the file does the word “learning”occur first.<br>
+Print -1 if word not found <br>
+__Code__
+```python
+def check_for_word():
+    word="programming"
+    with open("practice.txt","r") as f:
+        data=True
+        line_no = 1
+        with open("practice.txt","r") as f:
+            while data:
+                data=f.readline()
+                if(word in data):
+                    print(line_no)
+                    return 
+                line_no+=1
+    return -1            
+print(check_for_word())          
+```
+__Question 5.__ From a file containing numbers separated by comma, print the count of even numbers<br>
+__Code__
+```python
+with open("practice1.txt","r") as f:
+    data=f.read()
+    print(data)
+
+    num=""
+    for i in range(len(data)):
+        if(data[i]==","):
+            print(int(num))
+            num=""
+        else:
+            num+=data[i]
+```
+__Solution__ <br>
+__Code__
+```python
+count=1
+with open("practice1.txt","r") as f:
+    data=f.read()
+
+    nums = data.split(",")
+    for val in nums:
+        if(int(val) %2 ==0):
+            count+=1
+print(count)
+```
+# __Lesson 8__
+# OOP in Python
+To map with real world scenarios, we started using objects in code.
+This is called object oriented programming.
+
+## Class & Object in Python
+ Class is a blueprint for creating objects.<br>
+ __Code__
+ ```python
+ # Creating class
+ class Student:
+     name = “karan kumar”
+
+# creating object (instance)
+ s1 = Student( )
+ print( s1.name )
+ ```
+ __Code__
+ ```python
+class Student:
+    name="Saurav"
+
+s1=Student()
+print(s1.name)
+
+s2=Student()
+print(s2.name)
+```
+ __Code__
+ ```python
+class car:
+    engine="1205cc"
+    type="mercedes-gls-maybech"
+    color="black"
+car1=car()
+print(car1.type)
+print(car1.color)
+```
+# _ _init_ _ Function
+## Constructor
+ All classes have a function called __init__(), which is always executed when the object is being
+ initiated.<br>
+  __Code__
+ ```python
+ # Creating class
+ class Student:
+ def __init__(self, fullname ):
+ self.name = fullname
+ #creating object
+ s1 = Student( “karan” )
+ print( s1.name )
+```
+ __Note__ : The  parameter is a reference to the current instance of the class, and is used to access variables that belongs to the class.<br>
+ __Code__
+ ```python
+class Student:
+    name="karan"
+    def __init__():
+       print("adding new database in student..")
+s1= Student()
+```
+ __Code__
+ ```python
+class Student:
+    college_name ="DU"
+    #default constructor
+    def __init__():
+        print("adding new database in student..")
+        #parameterized constructor
+    def __init__(,fullname,marks):
+        .name=fullname
+        .marks=marks
+        print("adding new database in student..")
+s1= Student("samar",98)
+s2= Student("DON",95)
+print(s1.name,s1.marks)
+print(s2.name,s2.marks)
+print(Student.college_name)
+```
+# Class & Instance Attributes
+## i) Class.attr
+## ii) obj.attr
+ __Code__
+ ```python
+class Student:
+    college_name ="DU"
+    name="anonymous" #class attribute of same name as object attribute
+    #default constructor
+    def __init__():
+        print("adding new database in student..")
+        #parameterized constructor
+    def __init__(,fullname,marks):
+        .name=fullname #object attribute > class attribute
+        .marks=marks
+        print("adding new database in student..")
+s1= Student("samar",98)
+s2= Student("DON",95)
+print(s1.name,s1.marks)
+print(s2.name,s2.marks)
+```
+# Methods
+ Methods are functions that belong to objects.<br>
+  __Code__
+ ```python
+#creating class
+ class Student:
+ def __init__(self, fullname ):
+ self.name = fullname
+ def hello(self):
+ print(“hello”, self.name)
+
+#creating object
+
+ s1 = Student(“karan”)
+ s1.hello()
+```
+ __Code__
+ ```python
+class Student:
+    college_name ="DU"
+    def __init__(,fullname,marks):
+        .name=fullname 
+        .marks=marks
+
+    def welcome():#if we don't write  inside () then it throws error
+        print("Welcome Student-", .name)
+
+    def getmarks():
+        return .marks
+s1= Student("samar",98)
+s1.welcome()
+print(s1.getmarks())
+```
+
+# Practice Question
+__Question__ Create student class that takes name & marks of 3 subjects as arguments in constructor.<br>
+Then create a method to print the average
+ __Code__
+ ```python
+class student:
+        def __init__(,s_name,sub_marks):
+            .std_name = s_name
+            .subject_marks = sub_marks
+
+        def print_info():
+            print("Names: ",.std_name)
+            print("Marks: ",.subject_marks)
+
+        def avg_marks():
+            sum=0
+            for val in .subject_marks:
+                sum += val
+            print("Your average score is: ",sum/3)
+
+s1 = student("Sonu",[85,90,58])
+s1.print_info()
+s1.avg_marks()
+```
+# Static Methods
+ Methods that don’t use the self parameter (work at class level)<br>
+  __Code__
+ ```python
+ class Student:
+ @staticmethod #decorator
+ def college( ):
+ print( “ABC College” )
+```
+__Note__ : Decorators allow us to wrap another function in order to extend the behaviour of the wrapped function, without permanently modifying it.<br>
+ __Code__
+ ```python
+class student:
+        def __init__(self,s_name,sub_marks):
+            self.std_name = s_name
+            self.subject_marks = sub_marks
+
+        def print_info(self):
+            print("Names: ",self.std_name)
+            print("Marks: ",self.subject_marks)
+
+        @staticmethod #decorator
+        def clg():# here we didn't write self inside() and also gives no error because we use decorator(@staticmethod)
+            print("semester score")
+
+        def avg_marks(self):
+            sum=0
+            for val in self.subject_marks:
+                sum += val
+            print("Your average score is: ",sum/3)
+
+s1 = student("sonu",[85,90,58])
+s1.print_info()
+s1.clg()
+s1.avg_marks()
+```
+# Abstraction
+ Hiding the implementation details of a class and only showing the essential features to the user.<br>
+ __Code__
+ ```python
+class car:
+    def __init__(self):
+        self.acc=False
+        self.brk=False
+        self.clutch=False
+    
+    def start(self):
+        self.clutch=True
+        self.acc=True
+        print("Started...")
+
+car1=car()
+car1.start()
+```
+# Encapsulation
+ Wrapping data and functions into a single unit (object).
+
+# Practice Question
+__Question 1.__ Create Account class with 2 attributes - balance & account no.<br>
+Create methods for debit, credit & printing the balance.<br>
+ __Code__
+ ```python
+class Account:
+    def __init__(self, bal, acc):
+        self.balance=bal
+        self.account_no=acc
+
+    def debit(self,amount):
+        self.balance -= amount
+        print("Rs.",amount,"was debited.")
+        print("Total Balance is: ", self.get_balance())
+
+    def credit(self,amount):
+        self.balance += amount
+        print("Rs.",amount,"was credited.")
+        print("Total Balance is: ", self.get_balance())
+    def get_balance(self):
+        return self.balance
+
+acc1 = Account(100000, 7322000100000888)
+acc1.debit(1000)
+acc1.credit(5000)
+```
+# Delete keyword
+ del is used to delete object properties or object itself.<br>
+ __Code__
+ ```python
+class student:
+    def __init__(self,name):
+        self.name = name
+
+s1=student("sayan")#print sayan
+print(s1.name)
+del s1.name # del is used to delete object properties or object itself
+print(s1.name) #throws error
+```
+
+# Private and Public
+ __Code__
+ ```python
+class account:
+    def __init__(self,acc_no,acc_pass):
+        self.acc_no=acc_no
+        self.__acc_pass=acc_pass
+    
+    def reset_pass(self):
+        print(self.__acc_pass) #acc_pass is private cannot access it outside the class
+
+acc1=account("7322004562458","1235658")
+print(acc1.acc_no)
+```
+ __Code__
+ ```python
+class person:
+    __name="anonymous"
+
+p1=person()
+print(p1.__name) #we cannot access because it declared as private
+```
+ __Code__
+ ```python
+class person:
+    __name="Anonyous"
+    def __hello(self,name):
+        print("hello person!")
+    
+p1=person()
+print(p1.__hello)
+```
+ __Code__
+ ```python
+class person:
+    __name="Anonyous"
+    def __hello(self):
+        print("hello person!")
+
+    def welcome(self):
+        self.__hello()
+
+p1=person()
+print(p1.welcome()) # call welcome and welcome calls hello but hello declared as private but we can access private within the class 
+```
+
+# Inheritance
+## Types of inheritance
+ i) single inheritance<br>
+ ii) multi-level inheritance<br>
+ iii) multiple inheritance<br>
+ __Code__
+ ```python
+class car:
+    color="Black"
+    @staticmethod
+    def start():
+        print("Car Started...")
+    
+    @staticmethod
+    def stop():
+        print("Car Stoped...")
+
+class toyota(car):
+    def __init__(self,name):
+        self.name=name
+
+car1=toyota("Fortuner Legender")
+car2=toyota("Hilux")
+print(car1.name)
+print(car1.color)
+```
+
+## Examples of multi-level inheritance
+ __Code__
+ ```python
+class car:
+    color="Black"
+    @staticmethod
+    def start():
+        print("Car Started...")
+    
+    @staticmethod
+    def stop():
+        print("Car Stoped...")
+
+class toyota(car):
+    def __init__(self,type):
+        self.type=type
+
+class Fortuner(toyota):
+    def __init__(self,type):
+        self.type=type
+
+car1=Fortuner("Diesel")
+car1.start()
+```
+## Examples of multiple inheritance
+ __Code__
+ ```python
+class A:
+    varA="Welcome to class A"
+
+class B:
+    varB="Welcome to class B"
+
+class C(A, B):
+    varC="Welcome to class C"
+
+c1=C()
+print(c1.varA)
+print(c1.varB)
+print(c1.varC)
+```
+
+# Super Method
+super() is used to access methods of the parent class
+ __Code__
+ ```python
+class car:
+    def __init__(self,type):
+        self.type=type
+
+    @staticmethod
+    def start():
+        print("Car Started...")
+    
+    @staticmethod
+    def stop():
+        print("Car Stoped...")
+
+class toyota(car):
+    def __init__(self,name,type):
+        super().__init__(type)
+        self.name=name
+        super().start()
+
+car1=toyota("pirus","electric")
+print(car1.type)
+```
+
+# class method 
+ __Code__
+ ```python
+class person:
+    name="anonymous"
+
+    def changename(self,name):
+        self.name=name
+
+p1=person()
+p1.changename("Rahul kumar")
+print(p1.name)
+print(person.name)
+# output??
+```
+ __Code__
+ ```python
+class person:
+    name="anonymous"
+
+    def changename(self,name):
+        self.person=name
+
+p1=person()
+p1.changename("Rahul kumar")
+print(p1.name)
+print(person.name)
+```
+## 1st method of class method to change name
+ __Code__
+ ```python
+class person:
+    name="anonymous"
+
+    def changename(self,name):
+        person.name=name
+
+p1=person()
+p1.changename("Rahul kumar")
+print(p1.name)
+print(person.name)
+```
+## 2nd method of class method to change name
+ __Code__
+ ```python
+class person:
+    name="anonymous"
+
+    def changename(self,name):
+        self.__class__.name="sayan"
+
+p1=person()
+p1.changename("Rahul kumar")
+print(p1.name)
+print(person.name)
+```
+## 3rd method of class method to change name using @classmethod
+ __Code__
+ ```python
+class person:
+    name="anonymous"
+    
+    @classmethod
+    def changename(cls,name):
+        cls.name = name
+
+p1=person()
+p1.changename("Anish kumar")
+print(p1.name)
+print(person.name)
+```
+# Property Decorator
+__Normally__<br>
+ __Code__
+ ```python
+class student:
+    def __init__(self,maths,chem,phys):
+        self.maths=maths
+        self.chem=chem
+        self.phys=phys
+        self.percentage=str((self.maths+self.chem+self.phys)/3)+"%"
+
+    def cal_percentage(self):
+        self.percentage=str((self.maths+self.chem+self.phys)/3)+"%"
+
+stud1=student(90,80,85)
+print(stud1.percentage)
+# by mistake teacher gives wrong marks of phys
+stud1.phys=70
+stud1.cal_percentage()
+print(stud1.phys) # here teacher change the sub marks but percentage is still remain same so we create cal_percentage and update then print
+print(stud1.percentage) 
+```
+## using property decorator
+ __Code__
+ ```python
+class student:
+    def __init__(self,maths,chem,phys):
+        self.maths=maths
+        self.chem=chem
+        self.phys=phys
+        # self.percentage=str((self.maths+self.chem+self.phys)/3)+"%"
+
+    # def cal_percentage(self):
+    #     self.percentage=str((self.maths+self.chem+self.phys)/3)+"%"
+
+    @property
+    def percentage(self):
+        return str((self.maths+self.chem+self.phys)/3)+"%"
+
+stud1=student(90,80,85)
+print(stud1.percentage)
+
+stud1.phys=70
+print(stud1.percentage) 
+```
+__Note__: Read about getter() and setter()
+
+# Polymorphism : operator overloading
+## implicit  overloading
+ __Code__
+ ```python
+print(2+3)#5
+print("vande"+"bharat")#concatenate
+print([1,2,3]+[4,5,6])#merge
+```
+ __Code__
+ ```python
+class complex:
+    def __init__(self,real,imaginary):
+        self.real=real
+        self.imaginary=imaginary
+
+    def shownumber(self):
+        print(self.real,"i +",self.imaginary,"j")
+
+    def add(self,num2):
+        NewReal=self.real+num2.real
+        NewImaginary=self.imaginary+num2.imaginary
+        return complex(NewReal , NewImaginary)
+
+num1=complex(4,5)
+num1.shownumber()
+
+num2=complex(8,9)
+num2.shownumber()
+
+num3=num1.add(num2)
+num3.shownumber()
+```
+## using Operators & Dunder Functions
+## Add
+ __Code__
+ ```python
+class complex:
+    def __init__(self,real,imaginary):
+        self.real=real
+        self.imaginary=imaginary
+
+    def shownumber(self):
+        print(self.real,"i +",self.imaginary,"j")
+
+    def __add__(self,num2):
+        NewReal=self.real + num2.real
+        NewImaginary=self.imaginary + num2.imaginary
+        return complex(NewReal , NewImaginary)
+
+num1=complex(4,5)
+num1.shownumber()
+
+num2=complex(8,9)
+num2.shownumber()
+
+num3=num1+num2
+num3.shownumber()
+```
+## Subtract using dunder
+ __Code__
+ ```python
+class complex:
+    def __init__(self,real,imaginary):
+        self.real=real
+        self.imaginary=imaginary
+
+    def shownumber(self):
+        print(self.real,"i +",self.imaginary,"j")
+
+    def __sub__(self,num2):
+        NewReal=self.real - num2.real
+        NewImaginary=self.imaginary - num2.imaginary
+        return complex(NewReal , NewImaginary)
+
+num1=complex(4,5)
+num1.shownumber()
+
+num2=complex(8,9)
+num2.shownumber()
+
+num3=num1-num2
+num3.shownumber()
+```
+__link__ add,sub,mul,... (https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types)
+
+# Practice Question
+__Question:__ Define a Circle class to create a circle with radius r using the constructor<br>
+ Define an Area() method of the class which calculates the area of the circle.<br>
+ Define a Perimeter() method of the class which allows you to calculate the perimeter of the circle.
+ __Code__
+ ```python
+class circle:
+    def __init__(self,radius):
+        self.radius=radius
+
+    def area(self):
+        return 3.14 * self.radius ** 2
+
+    def perimeter(self):
+        return 2 * 3.14 * self.radius
+
+c1=circle(4)
+print(c1.area())
+print(c1.perimeter())
+```
+__Question:__ Define a Employee class with attributes role, department & salary. This showDetails() method.<br>
+Create an Engineer class that inherits properties from Employee & attributes B name & age.
+ __Code__
+ ```python
+class Employee:
+    def __init__(self,role,dept,sal):
+        self.role = role
+        self.dept = dept
+        self.sal = sal
+        
+    def showdetails(self):
+        print("Role: ",self.role)
+        print("Dept: ",self.dept)
+        print("Salary: ",self.sal)
+
+class Engineer(Employee):
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+        super().__init__("engineer","software-developer","12,00,000")
+
+eng1=Engineer("Gaurav",25)
+eng1.showdetails()
+```
+__Question:__ Create a class called Order which stores item & its price.<br>
+Use Dunder function _ gt _( ) to convey that:
+order1 > order2 if price of order1 > price of order2 <br>
+ __Code__
+ ```python
+class order():
+    def __init__(self,item,price):
+        self.item = item
+        self.price = price 
+
+    def __gt__(self, ord2):
+        return self.price > ord2.price
+
+ord1=order("chips",20)
+ord2=order("biscuit",10)
+
+print(ord1>ord2)#true
+```
